@@ -32,6 +32,20 @@ selKeys=(
     "1234qweras"
 )
 
+keyboardNames = (
+    "預設",
+    "許氏鍵盤",
+    "IBM",
+    "精業",
+    "倚天",
+    "倚天 26 鍵",
+    "DVORAK",
+    "DVORAK 許氏",
+    "漢語拼音",
+    "台灣華語羅馬拼音",
+    "注音二式"
+)
+
 class ChewingConfig:
 
     def __init__(self):

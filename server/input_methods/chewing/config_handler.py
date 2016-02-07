@@ -17,14 +17,21 @@
 
 import tornado
 import tornado.web
-from .chewing_config import chewingConfig
+import os
+from .chewing_config import chewingConfig, selKeys, keyboardNames
 
 class ConfigHandler(tornado.web.RequestHandler):
     def get(self):
+        print(repr(self.request))
         # we only allow requests from localhost
         if self.request.remote_ip not in ("::1", "127.0.0.1"):
             return
-        self.render("config.html", cfg=chewingConfig)
+
+        self.render("config.html",
+            cfg=chewingConfig,
+            selKeys=selKeys,
+            keyboardNames=keyboardNames
+        )
 
     def post(self):
         # we only allow requests from localhost
@@ -33,3 +40,8 @@ class ConfigHandler(tornado.web.RequestHandler):
         # TODO: save configurations
         # TODO: ask existing instances of text services to apply the new config values.
         self.write("Confuguration saved!")
+
+configHandlers = [
+    (r"/chewing/?", ConfigHandler),
+    (r"/chewing/static/(.*)", tornado.web.StaticFileHandler, {"path": os.path.join(os.path.dirname(__file__), "static")})
+]
